@@ -13,7 +13,7 @@ public class Mazzo
 	
 	public Mazzo()
 	{
-		
+		System.out.println("Metodo Mazzo() ");
 		carte = new ArrayList<Carta>();
 		
 		for(int j=1;j<=4;j++)
@@ -38,10 +38,10 @@ public class Mazzo
 			
 		}
 		
-		/* print();
+		 print();
 		
 		System.out.println("Nel mazzo sono presenti " + this.carte.size() + " carte.");
-		System.out.println(" ");	*/
+		System.out.println(" ");	
 	}
 
 	public void print()
@@ -95,12 +95,9 @@ public class Mazzo
 		return this.carte;
 	}
 	
-	public boolean rimuoviCarta(Carta c)
+	public void rimuoviCarta(int c)
 	{
-		/*System.out.print("Metodo rimuoviCarta(): ");
-		stampaDebug(c.getSeme(), c.getValore());*/
-		
-		return this.carte.remove(c);
+		this.carte.remove(c);
 	}
 
 	public void mischia()
