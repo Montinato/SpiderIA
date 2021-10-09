@@ -28,10 +28,98 @@ public class Tavolo
 		
 		initDistribuisciCarte(); // OK 
 		
+		//distribuisciCarteScoperte();
+		
+		stampa();
+		
 		//debug();
 	
 	}
+
 	
+
+	private void stampa() 
+	{
+		// STAMPARE LA PILA CORRETTAMENTE
+		
+		boolean cond = true;
+		
+		
+		
+		for(int i=0;i<this.pile.size() && cond;i++)
+		{
+			System.out.println(" ");
+			//System.out.println("All'interno della pila ci sono " + this.pile.size() + " array di pile.");
+			//System.out.println("Posizione di i = " + i);
+			System.out.println("Metodo stampa()");
+			System.out.println(" ");
+			
+			int num = 0;
+			
+			if(num == 10)
+				System.out.println(" ");
+			
+			for(int j=0;j<this.pile.get(i).size();j++)
+			{
+				
+				//System.out.println("Posizione " + i + " " + j + ".");
+				
+				Carta c = this.pile.get(i).get(j);
+				
+				if(c == null)
+				{
+					cond = false;
+					break;
+				}
+				
+				if(c.getValore() == 11)
+		        	System.out.print("J" + " ");
+		        else if(c.getValore() == 12)
+		        	System.out.print("Q" + " ");
+		        else if(c.getValore() == 13)
+		        	System.out.print("K" + " ");
+		        else 
+		        	System.out.print(c.getValore() + " ");
+				
+				if(c.getSeme() == 1 && num != 9)
+		        	System.out.print("[Fiori] " + " | ");
+		        else if(c.getSeme() == 2 && num != 9)
+		        	System.out.print("[Quadri]" + " | ");
+		        else if(c.getSeme() == 3 && num != 9)
+		        	System.out.print("[Cuori]" + " | ");
+		        else if(c.getSeme() == 4 && num != 9)
+		        	System.out.print("[Picche]" + " | ");
+				
+				if(c.getSeme() == 1 && num == 9)
+		        	System.out.print("[Fiori] ");
+		        else if(c.getSeme() == 2 && num == 9)
+		        	System.out.print("[Quadri]");
+		        else if(c.getSeme() == 3 && num == 9)
+		        	System.out.print("[Cuori]");
+		        else if(c.getSeme() == 4 && num == 9)
+		        	System.out.print("[Picche]");
+		        
+		        num++; 
+		        
+		        if(num == 10)
+		        {
+					System.out.println(" ");
+					num = 0;
+		        }
+			}
+			
+			num = 0;
+		}
+		
+	}
+
+
+
+	private void distribuisciCarteScoperte() 
+	{
+		
+	}
+
 	public void initDistribuisciCarte()
 	{
 		//System.out.println("Metodo initDistribuisciCarte() ");
@@ -58,7 +146,7 @@ public class Tavolo
 					
 					
 					Carta c = temp.get(k);
-					/* CONTROLLARE QUI PER L'ERRORE
+					/* CONTR)OLLARE QUI PER L'ERRORE
 					System.out.print("Elimino dal mazzo la carta ");
 					this.mazzo.stampaDebug(temp.get(k).getSeme(),temp.get(k).getValore()); */
 					this.mazzo.getCarte().remove(k);
@@ -152,8 +240,7 @@ public class Tavolo
 		
 		contElementiPila = contoNull;
 		System.out.println("LA PILA HA " + contElementiPila + " ELEMENTI NULL");	
-		
-	}
+		}
 
 	public void debug()
 	{
