@@ -27,23 +27,25 @@ public class Tavolo
 		
 		costruisciTavolo();
 		
-		//initDistribuisciCarte(); 
+		initDistribuisciCarte(); 
 		
-		stampaPilaLogica();
+		//stampaPilaLogica();
 
-		//stampaTutto();
+		stampaTutto();
 	}
 
 	
 
-	public Carta aggiornaCarta(Carta c,int i,int j,int valore)
+	public Carta aggiornaCarta(Carta c,int i,int j)
 	{
-		Carta x = this.mazzo.getCarta(valore);
-		this.pile.get(i).add(j, c);
+		Carta x = this.mazzo.getCarta(0);
+		this.pile.get(i).add(j, x);
 		this.mazzo.getCarte().remove(x);
-		//System.out.print("Ho aggiunto alla pila la carta ");
-		//this.mazzo.stampaDebug(this.pile.get(i).get(j).getSeme(), this.pile.get(i).get(j).getValore());
-		//System.out.println(" ");
+		
+		System.out.print("Ho aggiunto alla pila la carta ");
+		this.mazzo.stampaDebug(this.pile.get(i).get(j).getSeme(), this.pile.get(i).get(j).getValore());
+		System.out.println(" ");
+		
 		return x;
 	}
 
@@ -66,6 +68,34 @@ public class Tavolo
 	{
 		System.out.println(" ");
 		System.out.println("Metodo initDistribuisciCarte() ");
+		
+		int iterazioni = 0;
+		int elementiPila = numeroElementiPila(this.pile);
+		int cont = 0;
+		
+		Carta card = new Carta();
+		
+		for(int i=0;i<this.pile.size() && cont<elementiPila;i++)
+		{
+			elementiPila = numeroElementiPila(this.pile);
+			
+			for(int j=0;j<this.pile.get(i).size() && cont<elementiPila;j++)
+			{
+				Carta c = this.pile.get(i).get(j);
+				
+				if( (c.getSeme() == card.getSeme()) && ( (c.getValore() == card.getValore()) ) )
+				{
+					this.aggiornaCarta(c, i, j);
+					
+					iterazioni++;
+					System.out.println("Carte Aggiornate = " + iterazioni + ".");
+					
+					cont++;
+				}
+			}
+		}
+		
+		System.out.println("Carte Aggiornate = " + iterazioni + ".");
 	}
 	
 	
@@ -118,7 +148,6 @@ public class Tavolo
 		
 	}
 
-	
 	public int numeroElementiPila(ArrayList<ArrayList<Carta>> l)
 	{
 		int num = 0;
@@ -303,28 +332,94 @@ public class Tavolo
 			this.mazzo.stampaDebug(this.mazzo.getCarta(i).getSeme(),this.mazzo.getCarta(i).getValore());
 		System.out.println("Nel mazzo ci sono " + this.mazzo.getCarte().size() + " carte.");
 		
-		int cont = 0;
-		
 		System.out.println(" ");
 		System.out.println("STAMPO LA PILA ");
-		boolean stop = false;
 		
-		for(int i=0;i<this.pile.size() && !stop;i++)
+		boolean cond = true;
+		
+		for(int i=0;i<this.pile.size() && cond;i++)
+		{
+			
+			
+			int num = 0;
+			
+			if(num == 10)
+				System.out.println(" ");
+			
+			for(int j=0;j<this.pile.get(i).size();j++)
+			{
+				Carta c = this.pile.get(i).get(j);
+				
+				if(c == null)
+				{
+					cond = false;
+					break;
+				}
+				
+				if(c.getValore() == 11)
+		        	System.out.print("J" + " ");
+		        else if(c.getValore() == 12)
+		        	System.out.print("Q" + " ");
+		        else if(c.getValore() == 13)
+		        	System.out.print("K" + " ");
+		        else 
+		        	System.out.print(c.getValore() + " ");
+				
+				if(c.getSeme() == 1 && num != 9)
+		        	System.out.print("[Fiori] " + " | ");
+		        else if(c.getSeme() == 2 && num != 9)
+		        	System.out.print("[Quadri]" + " | ");
+		        else if(c.getSeme() == 3 && num != 9)
+		        	System.out.print("[Cuori]" + " | ");
+		        else if(c.getSeme() == 4 && num != 9)
+		        	System.out.print("[Picche]" + " | ");
+				
+				if(c.getSeme() == 1 && num == 9)
+		        	System.out.print("[Fiori] ");
+		        else if(c.getSeme() == 2 && num == 9)
+		        	System.out.print("[Quadri]");
+		        else if(c.getSeme() == 3 && num == 9)
+		        	System.out.print("[Cuori]");
+		        else if(c.getSeme() == 4 && num == 9)
+		        	System.out.print("[Picche]");
+		        
+		        num++; 
+		        
+		        if(num == 10)
+		        {
+					System.out.println(" ");
+					num = 0;
+		        }
+			}
+			
+			num = 0;
+		}	
+		
+		fixPile();
+		
+		int conteggio = numeroElementiPila(this.pile);
+		System.out.println("Nella pila ci sono " + conteggio + " carte.");
+	}
+	
+	
+	public void fixPile()
+	{
+		for(int i=0;i<this.pile.size();i++)
 		{
 			for(int j=0;j<this.pile.get(i).size();j++)
 			{
-				if(this.pile.get(i).get(j) == null)
+				Carta c = this.pile.get(i).get(j);
+				
+				if( c == null)
 				{
-					stop = true;
-					break;
+					this.pile.get(i).remove(j);
 				}
-				this.mazzo.stampaDebug(this.pile.get(i).get(j).getSeme(), this.pile.get(i).get(j).getValore());
-				//System.out.println(this.pile.get(i).get(j).getSeme() + " " + this.pile.get(i).get(j).getValore() + " ");
-				cont++;
-			}	
+			}
 		}
-		
-		System.out.println("Nella pila ci sono " + cont + " carte.");	
-	}	
-	
+	}
 }
+
+
+	
+	
+
