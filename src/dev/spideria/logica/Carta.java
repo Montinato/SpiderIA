@@ -5,8 +5,14 @@ public class Carta
 {
 	public int seme;
 	public int valore;
-	private boolean visibile;
+	private boolean visibile = false;
 	
+	public Carta()
+	{
+		this.seme = 0;
+		this.seme = 0;
+		this.visibile = false;
+	}
 	
 	public Carta(int seme,int valore)
 	{
@@ -32,7 +38,7 @@ public class Carta
 	}
 
 	public boolean isVisibile() {
-		return visibile;
+		return this.visibile;
 	}
 
 	public void setVisibile(boolean coperta) {

@@ -14,6 +14,7 @@ public class Mazzo
 	public Mazzo()
 	{
 		System.out.println("Metodo Mazzo() ");
+		
 		carte = new ArrayList<Carta>();
 		
 		for(int j=1;j<=4;j++)
@@ -24,7 +25,6 @@ public class Mazzo
 				this.carte.add(c);
 				
 			}
-			
 		}
 		
 		for(int j=1;j<=4;j++)
@@ -37,11 +37,6 @@ public class Mazzo
 			}
 			
 		}
-		
-		 print();
-		
-		System.out.println("Nel mazzo sono presenti " + this.carte.size() + " carte.");
-		System.out.println(" ");	
 	}
 
 	public void print()
@@ -58,11 +53,11 @@ public class Mazzo
 			}
 			else if(i == 0)
 			{
+				System.out.println(" ");
 				System.out.println("PRIMO MAZZO ");
 				System.out.println(" ");
 			}
 			
-			//System.out.println("DIO");
 			seme =  carte.get(i).getSeme();
 			valore = carte.get(i).getValore();
 			
@@ -106,8 +101,6 @@ public class Mazzo
 	}
 
 	public Carta getCarta(int i) {
-		/*System.out.print("Metodo getCarta(): ");
-		stampaDebug(this.carte.get(i).getSeme(),this.carte.get(i).getValore());	*/
 		return this.carte.get(i);
 	}
 	
