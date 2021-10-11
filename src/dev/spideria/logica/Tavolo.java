@@ -13,7 +13,8 @@ public class Tavolo
 	private int righe = 4;
 	private int colonne = 10;
 	
-	private int contElementiPila = 0;
+	// Salvo il numero di elementi della pila CORRENTE
+	private int elementiPila = 0;
 	
 	
 	
@@ -76,14 +77,14 @@ public class Tavolo
 		System.out.println("Metodo initDistribuisciCarte() ");
 		
 		int iterazioni = 0;
-		int elementiPila = numeroElementiPila();
+		int elementiPila = initNumeroElementiPila();
 		int cont = 0;
 		
 		Carta card = new Carta();
 		
 		for(int i=0;i<this.pile.size() && cont<elementiPila;i++)
 		{
-			elementiPila = numeroElementiPila();
+			elementiPila = initNumeroElementiPila();
 			
 			for(int j=0;j<this.pile.get(i).size() && cont<elementiPila;j++)
 			{
@@ -103,6 +104,7 @@ public class Tavolo
 		
 		System.out.println("Fine metodo initDistribuisciCarte() ");
 		System.out.println("Sono state aggiornate  " + iterazioni + " carte.");
+		this.elementiPila = iterazioni;
 	}
 	
 	
@@ -156,7 +158,7 @@ public class Tavolo
 		
 	}
 
-	public int numeroElementiPila()
+	public int initNumeroElementiPila()
 	{
 		int num = 0;
 		
@@ -326,9 +328,8 @@ public class Tavolo
 		}	
 
 		
-		int conteggio = numeroElementiPila();
 		System.out.println(" ");
-		System.out.println("Nella pila ci sono " + conteggio + " carte.");
+		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 	
 	public void stampaPila()
@@ -395,9 +396,7 @@ public class Tavolo
 			num = 0;
 		}	
 
-		
-		int conteggio = numeroElementiPila();
-		System.out.println("Nella pila ci sono " + conteggio + " carte.");
+		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 	
 
