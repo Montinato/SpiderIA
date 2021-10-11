@@ -33,7 +33,13 @@ public class Tavolo
 		System.out.println("Metodo tavolo() ");
 		
 		//stampaPilaLogica();
-		stampaTutto();
+		//stampaTutto();
+		stampaPila();
+		
+		System.out.println(" ");
+		System.out.println(" ");
+		
+		stampaPilaDebug();
 
 	}
 
@@ -48,6 +54,7 @@ public class Tavolo
 		System.out.println("Prelevo la carta " + x.getSeme() + " " + x.getValore() + " dal mazzo.");
 		this.pile.get(i).add(j, x);
 		System.out.println("Aggiungo la carta " + this.pile.get(i).get(j).getSeme() + " " + this.pile.get(i).get(j).getValore() + " alla pila ");
+		System.out.println("In posizione " + i + " " + j);
 		this.mazzo.getCarte().remove(x);
 		System.out.println("Elimino dal mazzo la carta " + x.getSeme() + " " + x.getValore());
 		
@@ -155,6 +162,8 @@ public class Tavolo
 		
 		this.pile.add(5,(ArrayList<Carta>) list);
 		
+		initStampaPila();
+		
 		
 	}
 
@@ -210,6 +219,7 @@ public class Tavolo
 		System.out.println("Nel mazzo ci sono " + this.mazzo.getCarte().size() + " carte.");
 	}
 	
+	
 	public void stampaPilaLogica()
 	{
 		System.out.println(" ");
@@ -252,7 +262,6 @@ public class Tavolo
 			num = 0;
 		}
 	}
-	
 	
 	
 	public void stampaTutto()
@@ -332,6 +341,78 @@ public class Tavolo
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 	
+	
+	public void initStampaPila()
+	{
+		System.out.println(" ");
+		System.out.println("Metodo initStampaPila() ");
+		System.out.println(" ");
+		
+		boolean cond = true;
+		
+		for(int i=0;i<this.pile.size() && cond;i++)
+		{
+			int num = 0;
+			
+			if(num == 10)
+				System.out.println(" ");
+			
+			for(int j=0;j<this.pile.get(i).size() && cond;j++)
+			{
+				Carta c = this.pile.get(i).get(j);
+				
+				System.out.print("Siamo in posizione " + i + " " + j +" -> ");
+				System.out.println(c.toString());
+				
+				if(c == null ) //|| (c.getSeme() == 0 || c.getValore() == 0))
+				{
+					cond = false;
+					break;
+				}
+				
+				if(c.getValore() == 11)
+		        	System.out.print("J" + " ");
+		        else if(c.getValore() == 12)
+		        	System.out.print("Q" + " ");
+		        else if(c.getValore() == 13)
+		        	System.out.print("K" + " ");
+		        else 
+		        	//System.out.print(c.getValore() + " ");
+				
+				if(c.getSeme() == 1 && num != 9)
+		        	System.out.print("[Fiori] " + " | ");
+		        else if(c.getSeme() == 2 && num != 9)
+		        	System.out.print("[Quadri]" + " | ");
+		        else if(c.getSeme() == 3 && num != 9)
+		        	System.out.print("[Cuori]" + " | ");
+		        else if(c.getSeme() == 4 && num != 9)
+		        	System.out.print("[Picche]" + " | ");
+				
+				if(c.getSeme() == 1 && num == 9)
+		        	System.out.print("[Fiori] ");
+		        else if(c.getSeme() == 2 && num == 9)
+		        	System.out.print("[Quadri]");
+		        else if(c.getSeme() == 3 && num == 9)
+		        	System.out.print("[Cuori]");
+		        else if(c.getSeme() == 4 && num == 9)
+		        	System.out.print("[Picche]");
+		        
+		        num++; 
+		        
+		        if(num == 10)
+		        {
+					System.out.println(" ");
+					num = 0;
+		        }
+			}
+			
+			num = 0;
+		}	
+
+		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
+	}
+	
+	
 	public void stampaPila()
 	{
 		System.out.println(" ");
@@ -351,7 +432,10 @@ public class Tavolo
 			{
 				Carta c = this.pile.get(i).get(j);
 				
-				if(c == null || (c.getSeme() == 0 || c.getValore() == 0))
+				// System.out.print("Siamo in posizione " + i + " " + j +" -> ");
+				//System.out.println(c.toString());
+				
+				if( (c == null ) || (c.getSeme() == 0 || c.getValore() == 0))
 				{
 					cond = false;
 					break;
@@ -396,9 +480,54 @@ public class Tavolo
 			num = 0;
 		}	
 
+		System.out.println(" ");
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 	
+	public void stampaPilaDebug()
+	{
+		System.out.println(" ");
+		System.out.println("Metodo stampaPilaDebug() ");
+		System.out.println(" ");
+		
+		System.out.println("La pila e' composta da " + this.pile.size() + " array list");
+		System.out.println(" ");
+		
+		boolean cond = true;
+		
+		for(int i=0;i<this.pile.size() && cond;i++)
+		{
+			
+			int num = 0;
+			
+			if(num == 10)
+				System.out.println(" ");
+			
+			for(int j=0;j<this.pile.get(i).size() && cond;j++)
+			{
+				Carta c = this.pile.get(i).get(j);
+				
+				if(c == null || (c.getSeme() == 0 || c.getValore() == 0))
+				{
+					cond = false;
+					break;
+				}
+				
+				System.out.print("Siamo in posizione " + i + " " + j +" -> ");
+				System.out.println(c.toString());
+				
+				num++;
+				  
+				if(num == 10)
+			    {
+					System.out.println(" ");
+					num = 0;
+			    }
+			}
+				
+			num = 0;
+		}	
+	}
 
 	
 }

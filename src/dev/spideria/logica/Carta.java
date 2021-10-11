@@ -7,6 +7,11 @@ public class Carta
 	public int valore;
 	private boolean visibile = false;
 	
+	@Override
+	public String toString() {
+		return "Carta [seme=" + seme + ", valore=" + valore + ", visibile=" + visibile + "]";
+	}
+
 	public Carta()
 	{
 		this.seme = 0;
