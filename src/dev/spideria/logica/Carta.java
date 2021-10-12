@@ -18,7 +18,12 @@ public class Carta
 		this.seme = 0;
 		this.visibile = false;
 	}
-	
+	public Carta(boolean visibile)
+	{
+		this.seme = 0;
+		this.seme = 0;
+		this.visibile = visibile;
+	}
 	public Carta(int seme,int valore)
 	{
 		this.seme = seme;
