@@ -5,7 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-public class Tavolo {
+public class Tavolo
+{
 	private ArrayList<ArrayList<Carta>> pile;
 	private Mazzo mazzo;
 	private int righe = 4;
@@ -14,7 +15,8 @@ public class Tavolo {
 	// Salvo il numero di elementi della pila CORRENTE
 	private long elementiPila = 0;
 
-	public Tavolo() {
+	public Tavolo() 
+	{
 		pile = new ArrayList<ArrayList<Carta>>();
 		mazzo = new Mazzo();
 
@@ -24,11 +26,14 @@ public class Tavolo {
 
 		initDistribuisciCarte();
 
-		// stampaPilaLogica();
+		stampaPilaDebug();
+		
 		// stampaTutto();
-		// stampaPila();
+		stampaPila();
+		
+		stampaPilaLogica();
 
-		initStampaPila();
+		//initStampaPila();
 
 	}
 
@@ -113,7 +118,7 @@ public class Tavolo {
 		for (int i = size; i < size + 6; i++)
 			this.pile.add(i, restituisciLista(5));
 
-		initStampaPila();
+		//initStampaPila();
 
 	}
 
@@ -144,17 +149,15 @@ public class Tavolo {
 		System.out.println(" ");
 
 		boolean cond = true;
-
-		for (int i = 0; i < this.pile.size() && cond; i++) {
-			int num = 0;
-
-			if (num == 10)
-				System.out.println(" ");
-
+		int num = 0;
+		
+		for (int i = 0; i < this.pile.size() && cond; i++) 
+		{
+			
 			for (int j = 0; j < this.pile.get(i).size(); j++) {
 				Carta c = this.pile.get(i).get(j);
 
-				System.out.print("Siamo in posizione " + i + " " + j + " -> ");
+				//System.out.print("Siamo in posizione " + i + " " + j + " -> ");
 
 				if (c == null) {
 					cond = false;
@@ -174,7 +177,7 @@ public class Tavolo {
 				}
 			}
 
-			num = 0;
+			
 		}
 	}
 
@@ -315,25 +318,25 @@ public class Tavolo {
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 
 	}
+	
 
-	public void stampaPila() {
+	public void stampaPila() 
+	{
 		System.out.println(" ");
 		System.out.println("Metodo stampaPila() ");
 		System.out.println(" ");
 
 		boolean cond = true;
-
-		for (int i = 0; i < this.pile.size() && cond; i++) {
-			int num = 0;
-
-			if (num == 10)
-				System.out.println(" ");
-
-			for (int j = 0; j < this.pile.get(i).size() && cond; j++) {
+		int num = 0;
+		
+		for (int i = 0; i < this.pile.size() && cond; i++) 
+		{
+			for (int j = 0; j < this.pile.get(i).size() && cond; j++) 
+			{
 				Carta c = this.pile.get(i).get(j);
 
-				// System.out.print("Siamo in posizione " + i + " " + j +" -> ");
-				// System.out.println(c.toString());
+				//System.out.print("Siamo in posizione " + i + " " + j +" -> ");
+				//System.out.println(c.toString());
 
 				if ((c == null) || (c.getSeme() == 0 || c.getValore() == 0)) {
 					cond = false;
@@ -374,8 +377,6 @@ public class Tavolo {
 					num = 0;
 				}
 			}
-
-			num = 0;
 		}
 
 		System.out.println(" ");
