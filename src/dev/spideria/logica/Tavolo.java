@@ -26,12 +26,27 @@ public class Tavolo
 
 		initDistribuisciCarte();
 		
-		stampaPilaDebug();
+		//stampaPilaDebug();
 		
-		// stampaPilaLogica();	DEVO CONTROLLARE QUESTO
+		fixVisibility();
+		
+		stampaPilaLogica();	
 		
 		displayPila();
+		
+		stampaPilaDebug();
 
+	}
+	
+	public void fixVisibility()
+	{
+		this.pile.get(0).get(5).setVisibile(true);
+		this.pile.get(1).get(5).setVisibile(true);
+		this.pile.get(2).get(5).setVisibile(true);
+		this.pile.get(3).get(5).setVisibile(true);
+		
+		for(int i=4;i<10;i++)
+				this.pile.get(i).get(4).setVisibile(true);
 	}
 	
 	public void displayPila()
@@ -54,9 +69,9 @@ public class Tavolo
 				
 				Carta c = this.pile.get(j).get(index);
 				
-				//System.out.println(" ");
-				//System.out.print("Siamo in posizione " + index + " " + j + " -> ");
-				//System.out.println(c.toString());
+				/* System.out.println(" ");
+				System.out.print("Siamo in posizione " + index + " " + j + " -> ");
+				System.out.println(c.toString()); */ 
 
 				if (c.getValore() == 11)
 					System.out.print("J" + " ");
@@ -171,7 +186,7 @@ public class Tavolo
 		for (int i = 1; i <= righe; i++) {
 
 			if (i == righe - 1)
-				list.add(new Carta(true));
+				list.add(new Carta(false));
 			else
 				list.add(new Carta(false));
 		}
@@ -229,24 +244,28 @@ public class Tavolo
 		
 		while(index <= righe )
 		{
-			//System.out.println("index = " + index + " size di index = " + this.pile.get(index).size());
+			//System.out.print("index = " + index + " ");
+		
 
 			for(int j=0;j<this.pile.size();j++)
 			{
 				if(index == 5 && j>3)
 					break;
 				
+				//System.out.print("Siamo in posizione " + index + " " + j + " -> ");
+				
 				Carta c = this.pile.get(j).get(index);
-				if (c == null) {
-					break;
-				}
-
+				
+				//System.out.print(c.toString() + " ");
+				
 				if (c.isVisibile())
-					System.out.print(1 + " ");
+					System.out.print("TRUE" + " ");
 				else
-					System.out.print(0 + " ");
+					System.out.print("FALSE" + " ");
 
 				num++;
+				
+				//System.out.println(" ");
 
 				if (num == 10) {
 					System.out.println(" ");
@@ -256,6 +275,8 @@ public class Tavolo
 		
 			index++;
 		}
+		
+		System.out.println(" ");
 	}
 
 	public void stampaTutto() {
@@ -519,6 +540,7 @@ public class Tavolo
 				num++;
 				numCarte++;
 				
+				System.out.println(" " + " visible = " + c.isVisibile() + ".");
 				System.out.println(" ");
 				
 				
