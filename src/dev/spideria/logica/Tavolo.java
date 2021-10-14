@@ -33,9 +33,21 @@ public class Tavolo
 		
 		//stampaPilaLogica();	
 		
+
+		System.out.println(" ");
+		System.out.println("PRIMA DEL METODO daiCarte() ");
+		System.out.println(" ");
 		
+		// displayPila();
+
+		// stampaPila();
 		
 		daiCarte();
+		
+		//System.out.println(" ");
+		//System.out.println("DOPO DEL METODO daiCarte() ");
+		//System.out.println(" ");
+		
 		displayPila();
 
 		stampaPila();
@@ -46,11 +58,14 @@ public class Tavolo
 	private void daiCarte() 
 	{
 		this.pile.stream().forEach(list -> list.add(getCartaDaMazzo()));
+		this.righe++; // NON MODIFICARE
 	}
 
-
-
-	private Carta getCartaDaMazzo() {
+	
+	private Carta getCartaDaMazzo() 
+	{
+		System.out.print("Metodo getCartaDaMazzo() " + " ");
+		System.out.println(this.mazzo.getCarta(0));
 		return this.mazzo.getCarte().remove(0);
 		
 	}
@@ -411,6 +426,7 @@ public class Tavolo
 		}
 
 		System.out.println(" ");
+		this.elementiPila = this.pile.stream().flatMap(Collection::stream).count();
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 	
@@ -517,7 +533,7 @@ public class Tavolo
 
 			for(int j=0;j<this.pile.size();j++)
 			{
-				if(index == 5 && j>3)
+				if(index == righe && j>3)
 					break;
 				
 				Carta c = this.pile.get(j).get(index);
@@ -575,7 +591,8 @@ public class Tavolo
 		}
 		
 		System.out.println(" ");
-		System.out.println("numCarte = " + numCarte);
+		this.elementiPila = this.pile.stream().flatMap(Collection::stream).count();
+		System.out.println("numCarte = " + this.elementiPila);
 		System.out.println(" ");
 
 	}
