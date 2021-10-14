@@ -17,6 +17,7 @@ public class Tavolo
 
 	private int indexRiga = 0;
 	private int indexColonna = 0;
+	private boolean inGame = true;
 	
 	public Tavolo() 
 	{
@@ -31,41 +32,32 @@ public class Tavolo
 		
 		fixVisibility();		// NON COMMENTARE QUESTO
 		
-		//stampaPilaLogica();	
-		
-
-		System.out.println(" ");
-		System.out.println("PRIMA DEL METODO daiCarte() ");
-		System.out.println(" ");
-		
-		// displayPila();
-
-		// stampaPila();
-		
 		daiCarte();
 		
-		//System.out.println(" ");
-		//System.out.println("DOPO DEL METODO daiCarte() ");
-		//System.out.println(" ");
+		stampaPilaLogica();
 		
-		displayPila();
+		 displayPila();
 
-		stampaPila();
+		 stampaPila();
+		
 	}
 	
 	
 
-	private void daiCarte() 
+	public void daiCarte() 
 	{
 		this.pile.stream().forEach(list -> list.add(getCartaDaMazzo()));
 		this.righe++; // NON MODIFICARE
 	}
 
 	
-	private Carta getCartaDaMazzo() 
+	public Carta getCartaDaMazzo() 
 	{
-		System.out.print("Metodo getCartaDaMazzo() " + " ");
-		System.out.println(this.mazzo.getCarta(0));
+		/* System.out.print("Metodo getCartaDaMazzo() " + " ");
+		System.out.println(this.mazzo.getCarta(0));	*/
+		
+		this.mazzo.getCarta(0).setVisibile(true);
+		
 		return this.mazzo.getCarte().remove(0);
 		
 	}
@@ -206,6 +198,53 @@ public class Tavolo
 
 			for(int j=0;j<this.pile.size();j++)
 			{
+				if(index == 6 && j>3)
+					break;
+				
+				//System.out.print("Siamo in posizione " + index + " " + j + " -> ");
+				
+				Carta c = this.pile.get(j).get(index);
+				
+				//System.out.print(c.toString() + " ");
+				
+				if (c.isVisibile())
+					System.out.print("TRUE" + " ");
+				else
+					System.out.print("FALSE" + " ");
+
+				num++;
+				
+				//System.out.println(" ");
+
+				if (num == 10) {
+					System.out.println(" ");
+					num = 0;
+				}
+			}
+		
+			index++;
+		}
+		
+		System.out.println(" ");
+	}
+	
+	public void initStampaPilaLogica() 
+	{
+		// DA USARE PER MOSTRARE LE PRIME 54 CARTE
+		System.out.println(" ");
+		System.out.println("Metodo stampaPilaLogica() ");
+		System.out.println(" ");
+
+		int index = 0;
+		int num = 0;
+		
+		while(index <= righe )
+		{
+			//System.out.print("index = " + index + " ");
+		
+
+			for(int j=0;j<this.pile.size();j++)
+			{
 				if(index == 5 && j>3)
 					break;
 				
@@ -235,6 +274,7 @@ public class Tavolo
 		
 		System.out.println(" ");
 	}
+
 
 	
 	public void stampaTutto() {
@@ -595,6 +635,18 @@ public class Tavolo
 		System.out.println("numCarte = " + this.elementiPila);
 		System.out.println(" ");
 
+	}
+
+
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 
 
