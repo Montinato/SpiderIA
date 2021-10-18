@@ -32,13 +32,22 @@ public class Tavolo
 		
 		fixVisibility();		// NON COMMENTARE QUESTO
 		
-		daiCarte();
+		//daiCarte();
 		
-		stampaPilaLogica();
+		//stampaPilaLogica();
 		
-		 displayPila();
+		
+		initStampaPilaLogica();
+		 
+		displayPilaGioco();
 
-		 stampaPila();
+		stampaPilaArrayList();
+		
+		
+		System.out.println(" ");
+		
+		elementiScala(3, 1, this.pile.get(3).get(1).getValore());
+		
 		
 	}
 	
@@ -232,7 +241,7 @@ public class Tavolo
 	{
 		// DA USARE PER MOSTRARE LE PRIME 54 CARTE
 		System.out.println(" ");
-		System.out.println("Metodo stampaPilaLogica() ");
+		System.out.println("Metodo initStampaPilaLogica() ");
 		System.out.println(" ");
 
 		int index = 0;
@@ -417,10 +426,10 @@ public class Tavolo
 	}
 	
 
-	public void stampaPila() 
+	public void stampaPilaArrayList() 
 	{
 		System.out.println(" ");
-		System.out.println("Metodo stampaPila() ");
+		System.out.println("Metodo stampaPilaArrayList() ");
 		System.out.println(" ");
 
 		int num = 0;
@@ -557,10 +566,10 @@ public class Tavolo
 	}
 	
 	
-	public void displayPila()
+	public void displayPilaGioco()
 	{
 		System.out.println(" ");
-		System.out.println("Metodo displayPila() ");
+		System.out.println("Metodo displayPilaGioco() ");
 		System.out.println(" ");
 		
 		int num = 0;
@@ -636,8 +645,32 @@ public class Tavolo
 		System.out.println(" ");
 
 	}
-
-
+	
+	public int elementiScala(int riga, int colonna,int valore)
+	{
+		
+		// Per provare questo metodo devo creare una PILA STATICA 
+		System.out.println("Riga = " + riga);
+		System.out.println("Colonna = " + colonna);
+		System.out.println("Valore = " + valore);
+		int cont = 0;
+		
+		for(int i=0;i<this.pile.get(riga).size();i++)
+		{
+			if(i > colonna && valore != 13)
+			{
+				if(this.pile.get(riga).get(i).getValore() == valore+1)
+					cont++;
+				else
+					break;
+			}
+		}
+		
+		System.out.println("Gli elementi della scala sono : " + cont + " . ");
+		return cont;
+		
+	}
+	
 
 	public boolean isInGame() {
 		return inGame;

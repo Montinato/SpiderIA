@@ -15,6 +15,8 @@ public class Main
 		{
 			int iterazioni = 0;
 			
+			int contaDaiCarte = 0;
+			
 			System.out.println(" ");
 			System.out.println(" BENVENUTO IN SPIDER ");
 			System.out.println(" ");
@@ -29,23 +31,31 @@ public class Main
 			Scanner input = new Scanner(System.in);
 			System.out.println(" ");
 			System.out.println("Inserici un valore : ");
+			
 			int x = input.nextInt();
 			
 			
 			if(x == 1 && iterazioni == 0)
 			{
+				
 				t.initStampaPilaLogica();
 				
-				t.displayPila();
+				t.displayPilaGioco();
 				
 				iterazioni++;
 				
 			}
-			else if( x == 2 && iterazioni == 0)
+			else if( x == 2 && contaDaiCarte < 5)
 			{
 				t.daiCarte();
 				
+				contaDaiCarte++;
+				
 				iterazioni++;
+			}
+			else if( x == 3 )
+			{
+				// METODO DI DLV PER SPOSTARE LE CARTE	
 			}
 			
 			input.close();
@@ -53,7 +63,9 @@ public class Main
 			t.setInGame(false);
 		}	
 		
+		
 	}
+	
 	
 	
 }

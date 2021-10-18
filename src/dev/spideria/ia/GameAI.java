@@ -36,7 +36,8 @@ public class GameAI
         return this.facts;
     }
 
-    public void setFacts(InputProgram facts) {
+    public void setFacts(InputProgram facts) 
+    {
         this.facts = facts;
     }
 
