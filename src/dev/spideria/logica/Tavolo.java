@@ -46,9 +46,14 @@ public class Tavolo
 		
 		System.out.println(" ");
 		
-		elementiScala(3, 1, this.pile.get(3).get(1).getValore());
+		// elementiScala(0, 0, this.pile.get(0).get(0).getValore());
 		
 		
+	}
+	
+	public ArrayList<ArrayList<Carta>> getPila()
+	{
+		return this.pile;
 	}
 	
 	
@@ -93,7 +98,7 @@ public class Tavolo
 		System.out.println(" ");
 		System.out.println("Metodo initCarte() ");
 
-		this.mazzo.mischia();
+		//this.mazzo.mischia();
 	}
 
 	
@@ -283,7 +288,6 @@ public class Tavolo
 		
 		System.out.println(" ");
 	}
-
 
 	
 	public void stampaTutto() {
@@ -653,14 +657,25 @@ public class Tavolo
 		System.out.println("Riga = " + riga);
 		System.out.println("Colonna = " + colonna);
 		System.out.println("Valore = " + valore);
-		int cont = 0;
+		int cont = 1;
+		int v = valore;
+		
+		if(v == 13)
+		{
+			System.out.println("Gli elementi della scala sono : " + cont + " . ");
+			return cont;
+		}
+			
 		
 		for(int i=0;i<this.pile.get(riga).size();i++)
 		{
-			if(i > colonna && valore != 13)
+			if(i > colonna )
 			{
-				if(this.pile.get(riga).get(i).getValore() == valore+1)
+				if(this.pile.get(riga).get(i).getValore() == v+1)
+				{
 					cont++;
+					v++;
+				}
 				else
 					break;
 			}
