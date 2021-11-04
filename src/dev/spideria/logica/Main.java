@@ -1,6 +1,7 @@
 package dev.spideria.logica;
 
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 import dev.spideria.ia.Cella;
 import dev.spideria.ia.GameAI;
@@ -8,13 +9,16 @@ import dev.spideria.ia.GameAI;
 public class Main 
 {
 	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException 
 	{
 		Tavolo tavolo = new Tavolo();
 		GameAI ai = new GameAI();
 		
+		// Riporto su questo file i fatti che genero 
+		PrintWriter out = new PrintWriter("input/facts.txt");
 		
-		while(tavolo.isInGame())
+		
+		while(tavolo.fineGioco()) 	//tavolo.fineGioco() -> Metodo di supporto che controlla lo stato del gioco
 		{
 			for(int i=0;i<tavolo.getPila().size();i++)
 			{
@@ -25,8 +29,21 @@ public class Main
 					Cella cella = new Cella(i,j,c.getValore(),num);
 					ai.addFacts(cella);
 					
+					// Aggiungo la cella creata al file facts.txt
+					out.println(cella);
 				}
 			}
+			
+			ai.loadFacts();
+			
+			// Un metodo che mi restituisce gli AnswerSet -> getAnswerSets()
+			
+			
+			// Chiudo l'oggetto PrintWriter
+			out.close();
+			
+			// Operazioni sulle celle
+
 		}
 
 	

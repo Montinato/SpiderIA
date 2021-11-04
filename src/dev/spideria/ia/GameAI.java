@@ -8,7 +8,7 @@ import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
 
 public class GameAI 
 {
-	private static String inputResource = "input/file";
+	private static String inputResource = "input/file.txt";
     private static Handler handler;
     InputProgram program;
     InputProgram facts;
@@ -35,7 +35,6 @@ public class GameAI
     public void clear() {
         this.facts.clearAll();
         handler.removeAll();
-
     }
 
     public void loadFacts() {
@@ -43,7 +42,7 @@ public class GameAI
         handler.addProgram(this.program);
     }
     
-    private static Handler getHandler() {
+    public static Handler getHandler() {
         return GameAI.handler;
     }
 

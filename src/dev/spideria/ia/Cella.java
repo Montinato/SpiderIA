@@ -57,7 +57,7 @@ public class Cella
 
 	@Override
 	public String toString() {
-		return "Cella [i=" + i + ", j=" + j + ", valore=" + valore + ", numElementiScala=" + numElementiScala + "]";
+		return "cella("+i+","+j+","+valore+","+numElementiScala+").";
 	}
     
 

@@ -1,0 +1,13 @@
+cella(0,0,1,6).    cella(0,1,2,5).  cella(0,2,3,4).  cella(0,3,4,3).    cella(0,4,5,2).   cella(0,5,6,1).
+
+scelgo(X,Y) | nonScelgo(X, Y) :- cella(X,Y,_,_).
+:- #count{K:scelgo(K,_)}<1.
+
+maxScala(X,Y,V) :- #max{W,X : cella(X,Y,_,W)}=V,cella(X,Y,_,_).
+:- nonScelgo(X,Y), maxScala(X,Y,V), cella(X,Y,_,_).
+
+
+% maxScala(X,Y,V) :- #max{W,X,Y : cella(X,Y,_,W)}=V,cella(X,Y,_,V).
+%:- nonScelgo(X,Y), maxScala(X,V), cella(X,Y,_,V).
+
+

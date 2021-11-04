@@ -55,8 +55,6 @@ public class Tavolo
 	{
 		return this.pile;
 	}
-	
-	
 
 	public void daiCarte() 
 	{
@@ -87,13 +85,7 @@ public class Tavolo
 		this.mazzo.getCarte().remove(x);
 	}
 
-	
-	public int generaRandom(int size) {
-		Random rand = new Random();
-		return rand.nextInt(size);
-	}
 
-	
 	public void initCarte() {
 		System.out.println(" ");
 		System.out.println("Metodo initCarte() ");
@@ -241,6 +233,7 @@ public class Tavolo
 		
 		System.out.println(" ");
 	}
+	
 	
 	public void initStampaPilaLogica() 
 	{
@@ -650,21 +643,24 @@ public class Tavolo
 
 	}
 	
+	
 	public int elementiScala(int riga, int colonna,int valore)
 	{
-		
-		// Per provare questo metodo devo creare una PILA STATICA 
-		System.out.println("Riga = " + riga);
-		System.out.println("Colonna = " + colonna);
-		System.out.println("Valore = " + valore);
+
 		int cont = 1;
 		int v = valore;
 		
 		if(v == 13)
 		{
-			System.out.println("Gli elementi della scala sono : " + cont + " . ");
+			System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
 			return cont;
 		}
+
+		int righePila = this.pile.size()-1;
+		int ultimo = this.pile.get(righePila).size();
+
+		if(riga == righePila && colonna == ultimo-1)
+			inGame = false;
 			
 		
 		for(int i=0;i<this.pile.get(riga).size();i++)
@@ -681,22 +677,16 @@ public class Tavolo
 			}
 		}
 		
-		System.out.println("Gli elementi della scala sono : " + cont + " . ");
+		System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
 		return cont;
 		
 	}
-	
 
-	public boolean isInGame() {
+	
+	public boolean fineGioco() 
+	{
 		return inGame;
 	}
 
 
-
-	public void setInGame(boolean inGame) {
-		this.inGame = inGame;
-	}
-
-
 }
-      
