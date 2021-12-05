@@ -652,7 +652,7 @@ public class Tavolo
 		
 		if(v == 13)
 		{
-			System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
+			//System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
 			return cont;
 		}
 
@@ -677,7 +677,7 @@ public class Tavolo
 			}
 		}
 		
-		System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
+		//System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
 		return cont;
 		
 	}
