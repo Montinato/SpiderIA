@@ -3,6 +3,7 @@ package dev.spideria.logica;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import dev.spideria.ia.Cella;
 import dev.spideria.ia.GameAI;
@@ -38,7 +39,9 @@ public class Main
 			ai.loadFacts();
 			
 			// Un metodo che mi restituisce gli AnswerSet -> getAnswerSets()
-			ai.getAnswerSets();
+			List<Cella> answerSets = ai.getAnswerSets();
+			
+		
 			
 			// Chiudo l'oggetto PrintWriter
 			out.close();

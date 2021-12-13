@@ -72,7 +72,7 @@ public class GameAI
     
     
     // DEVE ESESERE return ArrayList<Cella>
-    public void getAnswerSets() throws FileNotFoundException
+    public ArrayList<Cella> getAnswerSets() throws FileNotFoundException
     {
     	// L'arrayList in cui ci saranno le celle da confrontare ogni volta 
     	 ArrayList<Cella> max = new  ArrayList<Cella>();
@@ -92,27 +92,25 @@ public class GameAI
          else 
          {
              String answerSetsString = answersets.getAnswerSetsString();
-             ;
+             
              System.out.println("\n" + "Stampo l'answerset  \n" + answerSetsString);
              
-             Pattern matcher = Pattern.compile(
-                     "(cella\\((\\d{1}),(\\d{1}),(\\d{1}),(\\d{1,2})\\))");
+             Pattern matcher = Pattern.compile("/scelgo\\((\\d{1}),(\\d{1}),(\\d{1}),(\\d{1}\\))");
+              //"(cella\\((\\d{1}),(\\d{1}),(\\d{1}),(\\d{1,2})\\))"
              
-             Matcher m = matcher.matcher(answerSetsString);
-             
+            Matcher m = matcher.matcher(answerSetsString);
            // HO FATTO ADD E COMMIT, DEVO PUSHARE, MI DA AUTH FAILED
 
              while (m.find()) 
              {
             	 Cella cella = (new Cella(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), Integer.parseInt(m.group(4)))); 
-            	 // System.out.println(cella.toString());  
                  max.add(cella);
                  out.println(cella);
              }	
          }
          out.close();
          
-         //	return max;	
+         return max;	
     }
     
     // Mi serve per stampare logicamente la pila di Celle ( Cella da fixare + aggiungere il seme come parametro della cella )
@@ -122,8 +120,6 @@ public class GameAI
 		System.out.println("Metodo stampaPilaArrayList() ");
 		System.out.println(" ");
 
-		int num = 0;
-		
 		for (int i = 0; i < arrayList.size(); i++) 
 		{
 			for (int j = 0; j < arrayList.size(); j++) 
