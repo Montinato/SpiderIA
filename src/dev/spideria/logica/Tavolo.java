@@ -15,6 +15,10 @@ public class Tavolo
 	// Salvo il numero di elementi della pila CORRENTE
 	private long elementiPila = 0;
 
+	private int indexRiga = 0;
+	private int indexColonna = 0;
+	private boolean inGame = true;
+	
 	public Tavolo() 
 	{
 		pile = new ArrayList<ArrayList<Carta>>();
@@ -26,107 +30,53 @@ public class Tavolo
 
 		initDistribuisciCarte();
 		
-		//stampaPilaDebug();
+		fixVisibility();		// NON COMMENTARE QUESTO
 		
-		fixVisibility();
+		//daiCarte();
 		
-		stampaPilaLogica();	
+		//stampaPilaLogica();
 		
-		displayPila();
 		
-		stampaPilaDebug();
-
-	}
-	
-	public void fixVisibility()
-	{
-		this.pile.get(0).get(5).setVisibile(true);
-		this.pile.get(1).get(5).setVisibile(true);
-		this.pile.get(2).get(5).setVisibile(true);
-		this.pile.get(3).get(5).setVisibile(true);
-		
-		for(int i=4;i<10;i++)
-				this.pile.get(i).get(4).setVisibile(true);
-	}
-	
-	public void displayPila()
-	{
-		System.out.println(" ");
-		System.out.println("Metodo displayPila() ");
-		
-		int num = 0;
-		int index = 0;
-		int numCarte = 0;
+		initStampaPilaLogica();
 		 
-		while(index <= righe )
-		{
-			//System.out.println("index = " + index + " size di index = " + this.pile.get(index).size());
+		displayPilaGioco();
 
-			for(int j=0;j<this.pile.size();j++)
-			{
-				if(index == 5 && j>3)
-					break;
-				
-				Carta c = this.pile.get(j).get(index);
-				
-				/* System.out.println(" ");
-				System.out.print("Siamo in posizione " + index + " " + j + " -> ");
-				System.out.println(c.toString()); */ 
-
-				if (c.getValore() == 11)
-					System.out.print("J" + " ");
-				else if (c.getValore() == 12)
-					System.out.print("Q" + " ");
-				else if (c.getValore() == 13)
-					System.out.print("K" + " ");
-				else
-					System.out.print(c.getValore() + " ");
-	
-				if (c.getSeme() == 1 && num != 9)
-					System.out.print("[Fiori] " + " | ");
-				else if (c.getSeme() == 2 && num != 9)
-					System.out.print("[Quadri]" + " | ");
-				else if (c.getSeme() == 3 && num != 9)
-					System.out.print("[Cuori]" + " | ");
-				else if (c.getSeme() == 4 && num != 9)
-					System.out.print("[Picche]" + " | ");
-	
-				if (c.getSeme() == 1 && num == 9)
-					System.out.print("[Fiori] ");
-				else if (c.getSeme() == 2 && num == 9)
-					System.out.print("[Quadri]");
-				else if (c.getSeme() == 3 && num == 9)
-					System.out.print("[Cuori]");
-				else if (c.getSeme() == 4 && num == 9)
-					System.out.print("[Picche]");
-				
-				num++;
-				
-				//System.out.println(" ");
-				
-				if(num == 10)
-				{
-					System.out.println(" ");
-					num = 0;
-				}
-				
-				numCarte++;
-
-		}
-			
-			index++;
-			
-			//System.out.println("index = " + index);
-			
-			//DEVO CONTROLLARE SE I VALORI DI DISPLAY PILA SONO EQUIVALENTI ALLA PILA REALE
-		}
+		stampaPilaArrayList();
+		
 		
 		System.out.println(" ");
-		System.out.println("numCarte = " + numCarte);
-
+		
+		// elementiScala(0, 0, this.pile.get(0).get(0).getValore());
+		
+		
+	}
+	
+	public ArrayList<ArrayList<Carta>> getPila()
+	{
+		return this.pile;
 	}
 
-	public void aggiornaCarta(Carta c, int i, int j) {
+	public void daiCarte() 
+	{
+		this.pile.stream().forEach(list -> list.add(getCartaDaMazzo()));
+		this.righe++; // NON MODIFICARE
+	}
+
+	
+	public Carta getCartaDaMazzo() 
+	{
+		/* System.out.print("Metodo getCartaDaMazzo() " + " ");
+		System.out.println(this.mazzo.getCarta(0));	*/
+		
+		this.mazzo.getCarta(0).setVisibile(true);
+		
+		return this.mazzo.getCarte().remove(0);
+		
+	}
+
+
+
+	public void aggiornaCarta(int i, int j) {
 
 		Carta x = this.mazzo.getCarta(0);
 
@@ -135,18 +85,15 @@ public class Tavolo
 		this.mazzo.getCarte().remove(x);
 	}
 
-	public int generaRandom(int size) {
-		Random rand = new Random();
-		return rand.nextInt(size);
-	}
 
 	public void initCarte() {
 		System.out.println(" ");
 		System.out.println("Metodo initCarte() ");
 
-		this.mazzo.mischia();
+		//this.mazzo.mischia();
 	}
 
+	
 	public void initDistribuisciCarte() 
 	{
 		System.out.println(" ");
@@ -158,13 +105,13 @@ public class Tavolo
 
 		Carta card = new Carta();
 
-		for (int i = 0; i < this.pile.size() && cont < elementiPila; i++) {
+		for (int i = 0; i < this.pile.size() && cont < elementiPila+1; i++) {
 			elementiPila = (int) initNumeroElementiPila();
 
-			for (int j = 0; j < this.pile.get(i).size() && cont < elementiPila; j++) {
+			for (int j = 0; j < this.pile.get(i).size() && cont < elementiPila+1; j++) {
 				Carta c = this.pile.get(i).get(j);
 
-				this.aggiornaCarta(c, i, j);
+				this.aggiornaCarta(i, j);
 
 				iterazioni++;
 				// System.out.println("Carte Aggiornate = " + iterazioni + ".");
@@ -179,21 +126,20 @@ public class Tavolo
 
 	}
 
+	
 	public ArrayList<Carta> restituisciLista(int righe) {
 
 		ArrayList<Carta> list = new ArrayList<Carta>();
 
 		for (int i = 1; i <= righe; i++) {
 
-			if (i == righe - 1)
-				list.add(new Carta(false));
-			else
 				list.add(new Carta(false));
 		}
 		return list;
 
 	}
 
+	
 	public void costruisciTavolo() {
 		System.out.println(" ");
 		System.out.println("Metodo costruisciTavolo() ");
@@ -208,14 +154,21 @@ public class Tavolo
 		for (int i = size; i < size + 6; i++)
 			this.pile.add(i, restituisciLista(5));
 
-		//initStampaPila();
+		// MI SERVE PER DISTRIBUIRE LE CARTI RESTANTI
+		
+		indexRiga = this.pile.size() -1 ;
+		indexColonna = this.pile.get(indexRiga).size();	 // Posizione corrente in cui inserire ( NO -1 ) 
+		
+		//System.out.println("L'ultimo elemento della pila e' stato inserito in posizione : " + indexRiga + " " + indexColonna + " ");
 
 	}
 
+	
 	public long initNumeroElementiPila() {
 		return this.pile.stream().flatMap(Collection::stream).count();
 	}
 
+	
 	public int numeroElementiMazzo(List<Carta> list) {
 		int num = 0;
 
@@ -226,6 +179,7 @@ public class Tavolo
 		return num;
 	}
 
+	
 	public void stampaMazzo() {
 
 		for (int i = 0; i < this.mazzo.getCarte().size(); i++)
@@ -233,10 +187,59 @@ public class Tavolo
 		System.out.println("Nel mazzo ci sono " + this.mazzo.getCarte().size() + " carte.");
 	}
 
+	
 	public void stampaPilaLogica() 
 	{
 		System.out.println(" ");
 		System.out.println("Metodo stampaPilaLogica() ");
+		System.out.println(" ");
+
+		int index = 0;
+		int num = 0;
+		
+		while(index <= righe )
+		{
+			//System.out.print("index = " + index + " ");
+		
+
+			for(int j=0;j<this.pile.size();j++)
+			{
+				if(index == 6 && j>3)
+					break;
+				
+				//System.out.print("Siamo in posizione " + index + " " + j + " -> ");
+				
+				Carta c = this.pile.get(j).get(index);
+				
+				//System.out.print(c.toString() + " ");
+				
+				if (c.isVisibile())
+					System.out.print("TRUE" + " ");
+				else
+					System.out.print("FALSE" + " ");
+
+				num++;
+				
+				//System.out.println(" ");
+
+				if (num == 10) {
+					System.out.println(" ");
+					num = 0;
+				}
+			}
+		
+			index++;
+		}
+		
+		System.out.println(" ");
+	}
+	
+	
+	public void initStampaPilaLogica() 
+	{
+		// DA USARE PER MOSTRARE LE PRIME 54 CARTE
+		System.out.println(" ");
+		System.out.println("Metodo initStampaPilaLogica() ");
 		System.out.println(" ");
 
 		int index = 0;
@@ -279,6 +282,7 @@ public class Tavolo
 		System.out.println(" ");
 	}
 
+	
 	public void stampaTutto() {
 		System.out.println(" ");
 		System.out.println("Metodo stampaTutto() ");
@@ -350,6 +354,7 @@ public class Tavolo
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
 
+	
 	public void initStampaPila() {
 
 		System.out.println(" ");
@@ -418,83 +423,71 @@ public class Tavolo
 	}
 	
 
-	public void stampaPila() 
+	public void stampaPilaArrayList() 
 	{
 		System.out.println(" ");
-		System.out.println("Metodo stampaPila() ");
+		System.out.println("Metodo stampaPilaArrayList() ");
 		System.out.println(" ");
 
-		boolean cond = true;
 		int num = 0;
 		
-		for (int i = 0; i < this.pile.size() && cond; i++) 
+		for (int i = 0; i < this.pile.size(); i++) 
 		{
-			for (int j = 0; j < this.pile.get(i).size() && cond; j++) 
+			for (int j = 0; j < this.pile.get(i).size(); j++) 
 			{
 				Carta c = this.pile.get(i).get(j);
 
-				//System.out.print("Siamo in posizione " + i + " " + j +" -> ");
-				//System.out.println(c.toString());
-
-				if ((c == null) || (c.getSeme() == 0 || c.getValore() == 0)) {
-					cond = false;
-					break;
-				}
-
 				if (c.getValore() == 11)
-					System.out.print("J" + " ");
-				else if (c.getValore() == 12)
-					System.out.print("Q" + " ");
-				else if (c.getValore() == 13)
-					System.out.print("K" + " ");
-				else
-					System.out.print(c.getValore() + " ");
-
-				if (c.getSeme() == 1 && num != 9)
-					System.out.print("[Fiori] " + " | ");
-				else if (c.getSeme() == 2 && num != 9)
-					System.out.print("[Quadri]" + " | ");
-				else if (c.getSeme() == 3 && num != 9)
-					System.out.print("[Cuori]" + " | ");
-				else if (c.getSeme() == 4 && num != 9)
-					System.out.print("[Picche]" + " | ");
-
-				if (c.getSeme() == 1 && num == 9)
-					System.out.print("[Fiori] ");
-				else if (c.getSeme() == 2 && num == 9)
-					System.out.print("[Quadri]");
-				else if (c.getSeme() == 3 && num == 9)
-					System.out.print("[Cuori]");
-				else if (c.getSeme() == 4 && num == 9)
-					System.out.print("[Picche]");
-
-				num++;
-
-				if (num == 10) {
-					System.out.println(" ");
-					num = 0;
-				}
+						System.out.print(" J" + " ");
+					else if (c.getValore() == 12)
+						System.out.print(" Q" + " ");
+					else if (c.getValore() == 13)
+						System.out.print(" K" + " ");
+					else if(c.getValore() != 0)
+						System.out.print(" " + c.getValore() + " ");
+	
+					if (c.getSeme() == 1 && num != 9)
+						System.out.print("[Fiori] " + " | ");
+					else if (c.getSeme() == 2 && num != 9)
+						System.out.print("[Quadri]" + " | ");
+					else if (c.getSeme() == 3 && num != 9)
+						System.out.print("[Cuori]" + " | ");
+					else if (c.getSeme() == 4 && num != 9)
+						System.out.print("[Picche]" + " | ");
+					
+	
+					if (c.getSeme() == 1 && num == 9)
+						System.out.print("[Fiori] ");
+					else if (c.getSeme() == 2 && num == 9)
+						System.out.print("[Quadri]");
+					else if (c.getSeme() == 3 && num == 9)
+						System.out.print("[Cuori]");
+					else if (c.getSeme() == 4 && num == 9)
+						System.out.print("[Picche]");
+					
+			//	}
 			}
+			
+			System.out.println(" ");
 		}
 
 		System.out.println(" ");
+		this.elementiPila = this.pile.stream().flatMap(Collection::stream).count();
 		System.out.println("Nella pila ci sono " + this.elementiPila + " carte.");
 	}
-
+	
+	
 	public void stampaPilaDebug() 
 	{
 		System.out.println(" ");
 		System.out.println("Metodo stampaPilaDebug() ");
 		System.out.println(" ");
 
-		System.out.println("La pila e' composta da " + this.pile.size() + " array list");
-		System.out.println(" ");
-
 		boolean cond = true;
 		int numCarte = 0;
 
-		for (int i = 0; i < this.pile.size() && cond; i++) {
-
+		for (int i = 0; i < this.pile.size() && cond; i++) 
+		{
 			int num = 0;
 
 			if (num == 10)
@@ -508,7 +501,7 @@ public class Tavolo
 					break;
 				}
 
-				System.out.print("Siamo in posizione " + i + " " + j + " -> ");
+				//System.out.print("Siamo in posizione " + i + " " + j + " -> ");
 				
 				if (c.getValore() == 11)
 					System.out.print("J" + " ");
@@ -540,12 +533,12 @@ public class Tavolo
 				num++;
 				numCarte++;
 				
-				System.out.println(" " + " visible = " + c.isVisibile() + ".");
-				System.out.println(" ");
+				//System.out.println(" " + " visible = " + c.isVisibile() + ".");
+				//System.out.println(" ");
 				
 				
 				if (num == 10) {
-					//System.out.println(" ");
+					System.out.println(" ");
 					num = 0;
 				}
 			}
@@ -553,9 +546,147 @@ public class Tavolo
 			num = 0;
 		}
 		
+		System.out.println(" ");
 		System.out.println("numCarte = " + numCarte);
 	}
 	
 	
+	public void fixVisibility()
+	{
+		this.pile.get(0).get(5).setVisibile(true);
+		this.pile.get(1).get(5).setVisibile(true);
+		this.pile.get(2).get(5).setVisibile(true);
+		this.pile.get(3).get(5).setVisibile(true);
+		
+		for(int i=4;i<10;i++)
+				this.pile.get(i).get(4).setVisibile(true);
+	}
+	
+	
+	public void displayPilaGioco()
+	{
+		System.out.println(" ");
+		System.out.println("Metodo displayPilaGioco() ");
+		System.out.println(" ");
+		
+		int num = 0;
+		int index = 0;
+		int numCarte = 0;
+		 
+		while(index <= righe )
+		{
+			//System.out.println("index = " + index + " size di index = " + this.pile.get(index).size());
+
+			for(int j=0;j<this.pile.size();j++)
+			{
+				if(index == righe && j>3)
+					break;
+				
+				Carta c = this.pile.get(j).get(index);
+				
+				/* System.out.println(" ");
+				System.out.print("Siamo in posizione " + index + " " + j + " -> ");
+				System.out.println(c.toString()); */ 
+
+				if (c.getValore() == 11)
+					System.out.print("J" + " ");
+				else if (c.getValore() == 12)
+					System.out.print("Q" + " ");
+				else if (c.getValore() == 13)
+					System.out.print("K" + " ");
+				else
+					System.out.print(c.getValore() + " ");
+	
+				if (c.getSeme() == 1 && num != 9)
+					System.out.print("[Fiori] " + " | ");
+				else if (c.getSeme() == 2 && num != 9)
+					System.out.print("[Quadri]" + " | ");
+				else if (c.getSeme() == 3 && num != 9)
+					System.out.print("[Cuori]" + " | ");
+				else if (c.getSeme() == 4 && num != 9)
+					System.out.print("[Picche]" + " | ");
+	
+				if (c.getSeme() == 1 && num == 9)
+					System.out.print("[Fiori] ");
+				else if (c.getSeme() == 2 && num == 9)
+					System.out.print("[Quadri]");
+				else if (c.getSeme() == 3 && num == 9)
+					System.out.print("[Cuori]");
+				else if (c.getSeme() == 4 && num == 9)
+					System.out.print("[Picche]");
+				
+				num++;
+				
+				//System.out.println(" ");
+				
+				if(num == 10)
+				{
+					System.out.println(" ");
+					num = 0;
+				}
+				
+				numCarte++;
+
+		}
+			
+			index++;
+			
+			//System.out.println("index = " + index);
+			
+			//DEVO CONTROLLARE SE I VALORI DI DISPLAY PILA SONO EQUIVALENTI ALLA PILA REALE
+		}
+		
+		System.out.println(" ");
+		this.elementiPila = this.pile.stream().flatMap(Collection::stream).count();
+		System.out.println("numCarte = " + this.elementiPila);
+		System.out.println(" ");
+
+	}
+	
+	
+	public int elementiScala(int riga, int colonna,int valore)
+	{
+
+		int cont = 1;
+		int v = valore;
+		
+		if(v == 13)
+		{
+			//System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
+			return cont;
+		}
+
+		int righePila = this.pile.size()-1;
+		int ultimo = this.pile.get(righePila).size();
+
+		if(riga == righePila && colonna == ultimo-1)
+			inGame = false;
+			
+		
+		for(int i=0;i<this.pile.get(riga).size();i++)
+		{
+			if(i > colonna )
+			{
+				if(this.pile.get(riga).get(i).getValore() == v+1)
+				{
+					cont++;
+					v++;
+				}
+				else
+					break;
+			}
+		}
+		
+		//System.out.println("In posizione " + riga + " " + colonna + " gli elementi della scala sono : " + cont + " . ");
+		return cont;
+		
+	}
+
+	
+	public boolean fineGioco() 
+	{
+		return inGame;
+	}
+
 
 }
