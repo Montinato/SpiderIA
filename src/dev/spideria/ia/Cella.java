@@ -13,20 +13,24 @@ public class Cella
     @Param(2)
     int valore;
     @Param(3)
+    int seme;
+    @Param(4)
     int numElementiScala;
     
 
-    public Cella(int i, int j, int num ,int valore) {
+    public Cella(int i, int j, int seme ,int valore,int num) {
         this.i = i;
         this.j = j;
         this.valore = valore;
+        this.seme = seme;
         this.numElementiScala = num;
     }
 
     public int getI() {
         return this.i;
     }
-
+    
+  
     public void setI(int i) {
         this.i = i;
     }
@@ -37,6 +41,16 @@ public class Cella
 
     public void setJ(int j) {
         this.j = j;
+    }
+    
+    public int getSeme()
+    {
+    	return this.seme;
+    }
+    
+    public void setSeme(int s)
+    {
+    	this.seme = s;	
     }
     
     public int getNumElementiScala() {
@@ -57,7 +71,8 @@ public class Cella
 
 	@Override
 	public String toString() {
-		return "cella("+i+","+j+","+valore+","+numElementiScala+").";
+		return "cella("+i+","+j+","+seme+","+valore+","+numElementiScala+").";
+			
 	}
     
 
