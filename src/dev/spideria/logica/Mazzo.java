@@ -1,13 +1,11 @@
 package dev.spideria.logica;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class Mazzo 
 {
-	private int dimensione = 104; 
 	private int intervallo = 14;
 	private List<Carta> carte = null;
 	
