@@ -23,4 +23,3 @@ maxScala(X,Y,V) :- #max{W,X : cella(X,Y,_,_,W)}=V,cella(X,Y,_,_,_).
 %	maxScala(X,Y,V) :- #max{W,X,Y : cella(X,Y,_,_,W)}=V,cella(X,Y,_,_,V).
 %	:- nonScelgo(X,Y,_,_,_), maxScala(X,V,_), cella(X,Y,_,_,V).
 
-
