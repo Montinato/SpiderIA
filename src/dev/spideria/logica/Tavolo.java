@@ -3,7 +3,6 @@ package dev.spideria.logica;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class Tavolo
@@ -36,14 +35,14 @@ public class Tavolo
 		
 		//daiCarte();
 		
-//		stampaPilaLogica();
+		//stampaPilaLogica();
 		
 		
-		 initStampaPilaLogica();
+		// initStampaPilaLogica();
 		 
-		 displayPilaGioco();
+		// displayPilaGioco();
 
-		stampaPilaArrayList();
+		//stampaPilaArrayList();
 		
 		
 		
@@ -91,7 +90,7 @@ public class Tavolo
 		System.out.println(" ");
 		System.out.println("Metodo initCarte() ");
 
-		 this.mazzo.mischia();
+		//this.mazzo.mischia();
 	}
 
 	
@@ -119,117 +118,7 @@ public class Tavolo
 
 	}
 
-	public boolean possoSpostareBlocco(int riga , int colonna) {
-		
-		ArrayList<Carta> colonnaDelBloccoDaSpostare = this.pile.get(riga);
-		
-		int valorePartenza = colonnaDelBloccoDaSpostare
-									  .get(colonna)
-									  .getValore();
-		int semePartenza = colonnaDelBloccoDaSpostare
-												  .get(colonna)
-												  .getSeme();
-		
-		for(int i=colonna+1; i<colonnaDelBloccoDaSpostare.size();i++) {
-			if(colonnaDelBloccoDaSpostare.get(i).getSeme() != semePartenza) {
-				return false;
-			}
-			if(colonnaDelBloccoDaSpostare.get(i).getValore() != valorePartenza+1){
-				return false;
-			}
-				valorePartenza++;
-		}
-		return true;
-	}
-	public boolean possoIncollareBlocco(int riga , int colonna, ArrayList<Carta> carteDaIncollare) {
-		
-		ArrayList<Carta> colonnaDoveIncollare = this.pile.get(riga);
-		
-		int valoreUltimaCarta = colonnaDoveIncollare
-														.get(colonnaDoveIncollare.size()-1)
-														.getValore();
-		int valorePrimaCartaDaIncollare = carteDaIncollare.get(0).getValore();
-		
-		if( valoreUltimaCarta == 0 || valorePrimaCartaDaIncollare == 0){
-			return false;
-		}
-		
-		return  valorePrimaCartaDaIncollare == valoreUltimaCarta-1;
-	}
-	public boolean spostaBlocco(int rigaFrom, int colonnaFrom, int rigaTo, int colonnaTo) {
-		
-		if(!possoSpostareBlocco(rigaFrom,colonnaFrom)) {
-			return false;
-		}
-		System.out.println("Ho controllato se posso spostare il blocco");
-		ArrayList<Carta>  carteDaIncollare = this.getElementiConsecutiviPila(rigaFrom,colonnaFrom);
-		if(!possoIncollareBlocco(rigaTo, colonnaTo, carteDaIncollare)) {
-			return false;
-		}
-		System.out.println("Ho controllato se posso incollare il blocco");
-		for(int i=this.pile.get(rigaFrom).size()-1;i>=colonnaFrom;i--) {
-			this.pile.get(rigaFrom).remove(i);
-		}
-		System.out.println("Sto spostando il blocco "+ carteDaIncollare.toString());
-		System.out.println("Ho rimosso il blocco");
-		this.pile.get(rigaTo).addAll(carteDaIncollare);
-		System.out.println("Ho incollato il blocco");
-		return true;
-		
-	}
-	public ArrayList<Carta> getElementiConsecutiviPila(int riga, int colonna ) {
-		//si suppone che gli elementi della pila rigaFrom siano consecutivi , è una semplice get
-		ArrayList<Carta> colonnaDelBloccoDaSpostare = this.pile.get(riga);
-		ArrayList<Carta> carteDaRestituire = new ArrayList<Carta>();
-		int valorePartenza = colonnaDelBloccoDaSpostare
-									  .get(colonna)
-									  .getValore();
-		for(int i=colonna; i<colonnaDelBloccoDaSpostare.size();i++) {
-			carteDaRestituire.add(colonnaDelBloccoDaSpostare.get(i));
-		}
-		return carteDaRestituire;
-	}
-
-	public boolean chiusoScalaCompleta(int riga,int colonna) {
-		
-		ArrayList<Carta> pilaDaControllare = this.pile.get(riga);
-		int valoreCorrente = 1;
-		
-		for(int i=0;i<pilaDaControllare.size();i++) {
-			if(pilaDaControllare.get(i).getValore() != valoreCorrente) {
-				return false;
-			}
-			valoreCorrente++;
-		}
-		return true;
-	}
-
-	public void stampaTavoloInColonna() {
-		
-			
-			for(int i=0;i<this.pile.size();i++) {
-				
-				for(int j=0;j<this.pile.get(i).size();j++) {
-					System.out.println(this.pile.get(i).get(j).stampaCarta());
-				}
-				System.out.println("\n");
-		}
-	}
-public void stampaTavolo() {
-		
-		for (int k=0 ; k< this.pile.size(); k++) {
-			
-			for(int i=0;i<this.pile.size();i++) {
-				if(k < this.pile.get(i).size()) {
-					System.out.print(this.pile.get(i).get(k).stampaCarta());
-				}
-				else {
-					System.out.print("|           |  ");
-				}
-			}
-			System.out.println("\n");
-		}
-	}
+	
 	public ArrayList<Carta> restituisciLista(int righe) {
 
 		ArrayList<Carta> list = new ArrayList<Carta>();
@@ -305,6 +194,7 @@ public void stampaTavolo() {
 		if(riga == righePila && colonna == ultimo-1)
 			inGame = false;
 			
+		
 		for(int i=0;i<this.pile.get(riga).size();i++)
 		{
 			if(i > colonna )
@@ -335,9 +225,8 @@ public void stampaTavolo() {
 		this.pile.get(2).get(5).setVisibile(true);
 		this.pile.get(3).get(5).setVisibile(true);
 		
-		for(int i=4;i<10;i++) {
-			this.pile.get(i).get(4).setVisibile(true);
-		}
+		for(int i=4;i<10;i++)
+				this.pile.get(i).get(4).setVisibile(true);
 	}
 	
 	
