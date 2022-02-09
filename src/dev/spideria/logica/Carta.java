@@ -11,30 +11,7 @@ public class Carta
 	public String toString() {
 		return "Carta [seme=" + seme + ", valore=" + valore + ", visibile=" + visibile + "]";
 	}
- public String stampaCarta() {
-	 String stringa;
-	 
-	 if (this.valore == 11)
-		 stringa= "| J " ;
-		else if (this.valore == 12)
-			 stringa= "| Q " ;
-		else if (this.valore == 13)
-			 stringa= "| K " ;
-		else
-			 stringa= this.valore+ "" ;
-	 
-	       if (this.seme == 1 )
-	    	   stringa =  stringa+ "[Fiori] | ";
-		else if (this.seme == 2 )
-			stringa = stringa+"[Quadri] |" ;
-		else if (this.seme == 3 )
-			stringa =stringa+ "[Cuori] |" ;
-		else if (this.seme == 4  )
-			stringa = stringa+"[Picche] |"  ;
-	  
-	 
-	 return stringa;
- }
+
 	public Carta()
 	{
 		this.seme = 0;
@@ -52,7 +29,7 @@ public class Carta
 	public Carta(boolean visibile)
 	{
 		this.seme = 0;
-		this.valore = 0;
+		this.seme = 0;
 		this.visibile = visibile;
 	}
 	public Carta(int seme,int valore)
