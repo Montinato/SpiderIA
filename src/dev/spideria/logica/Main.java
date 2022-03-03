@@ -16,7 +16,7 @@ public class Main
 	{
 		Tavolo tavolo = new Tavolo();
 		GameAI ai = new GameAI();
-		
+		ArrayList<Posizione> destinazioni = new ArrayList<Posizione>();
 		// Riporto su questo file i fatti che genero 
 		PrintWriter out = new PrintWriter("input/facts.txt");
 		
@@ -30,8 +30,11 @@ public class Main
 					Carta c = tavolo.getPila().get(i).get(j);
 					
 					if(c.isVisibile()) {
+						if(j==tavolo.getPila().get(i).size()-1 ) {
+							destinazioni.add(new Posizione(i, j));
+						}
 					int num = tavolo.elementiScala(i, j, c.getValore());
-					Cella cella = new Cella(i,j,c.getSeme(),c.getValore(),num);
+					Cella cella = new Cella(i,j,c.getSeme(),c.getValore(),num); 
 					ai.addFacts(cella);
 					out.println(cella);		// Aggiungo la cella creata al file facts.txt
 					System.out.println(cella);
@@ -50,7 +53,7 @@ public class Main
 			int colonnaTo= scanner.nextInt();      
 			tavolo.spostaBlocco(rigaFrom, colonnaFrom, rigaTo, colonnaTo);	 */
 
-			tavolo.initStampaPilaLogica();
+//			tavolo.initStampaPilaLogica();
 			//tavolo.stampaTavolo();
 			tavolo.displayPilaGioco();
 			tavolo.stampaPilaArrayList();
@@ -73,28 +76,31 @@ public class Main
 				 		Quando avrò maxScala(1) 	*/
 				
 			
-			Scelta answerSets = ai.getAnswerSets();
+			Scelta answerSets = ai.getAnswerSets();// Da qui devi uscire con la cella che 
+			//deve essere spostata
 			
-			/*
 			if (answerSets.getI() != null && answerSets.getJ() != null)
 			{
 				
-				ArrayList<Posizione> destinazioni = ai.getPosizioni();
-				
+//				ArrayList<Posizione> destinazioni = ai.getPosizioni();
+				//L'oggetto posizione deve indicare le possibili coppie (i,j)
+				//che dove posso incollare la pila di carte che parte dalla posizione (answerset)
 				
 				for (Posizione posizione : destinazioni) {
-					tavolo.spostaBlocco(answerSets.getI() , answerSets.getJ() , posizione.getI(), posizione.getJ());
+					boolean spostaBlocco = tavolo.spostaBlocco(answerSets.getI() , answerSets.getJ() , posizione.getI(), posizione.getJ());
+					if(spostaBlocco) {
+						break;
+					}
 				}
 				
 			}
 			
 			
-			if(ai.distribuisciCarteMazzo() && tavolo.numCarteMazzo() > 0)
-				tavolo.daiCarte();
-			*/
+//			if(ai.distribuisciCarteMazzo() && tavolo.numCarteMazzo() > 0)
+//				tavolo.daiCarte();
 			out.close();
+			destinazioni.clear();
 		}
-	
 	}
 
 

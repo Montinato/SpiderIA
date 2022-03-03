@@ -7,7 +7,7 @@
 %scelgo(I,J) :- massimaScala(M), cella(I,J,_,_,_).
 %massimaScala(M) :-  #max{ X,I : cella(I,J,_,_,X) } = M.
 
-
+%Devi fare un wk costraint per capire data una cella e la sua massima scala, quale spostare per primo
 % POI HO FATTO QUESTO 
 
 scelgo(I,J,N) | nonScelgo(I,J,N) :- cella(I,J,S,V,N).
@@ -18,4 +18,6 @@ massimaScala(M) :-  #max{ X : cella(I,J,_,_,X) } = M.
 
 :- nonScelgo(I,J,N), massimaScala(N).
 
-daiCarte(V) :- massimaScala(V), V = 1.	
+daiCarte(V) :- massimaScala(V), V = 1.
+
+	
