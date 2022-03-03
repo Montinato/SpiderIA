@@ -159,13 +159,16 @@ public class Tavolo
 		if(!possoSpostareBlocco(rigaFrom,colonnaFrom)) {
 			return false;
 		}
-		System.out.println("Ho controllato se posso spostare il blocco");
+		System.out.println("Ho controllato se posso spostare il blocco che parte dalla carta "+
+		"I= "+rigaFrom+" J= " +colonnaFrom );
 		ArrayList<Carta>  carteDaIncollare = this.getElementiConsecutiviPila(rigaFrom,colonnaFrom);
 		if(!possoIncollareBlocco(rigaTo, colonnaTo, carteDaIncollare)) {
+			System.out.println("Non posso incollare il blocco che parte dalla carta "+
+					"I= "+rigaFrom+" J= " +colonnaFrom + "nella posizione I="+rigaTo+"J="+colonnaTo  );
 			return false;
 		}
 		
-		System.out.println("Ho controllato se posso incollare il blocco");
+		System.out.println("posso incollare il blocco");
 		for(int i=this.pile.get(rigaFrom).size()-1;i>=colonnaFrom;i--) {
 			this.pile.get(rigaFrom).remove(i);
 		}
