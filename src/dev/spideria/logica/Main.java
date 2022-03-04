@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
 		Tavolo tavolo = new Tavolo();
 		GameAI ai = new GameAI();
-
+		boolean spostamentoEffettuato = false;
 		ArrayList<Posizione> destinazioni = new ArrayList<Posizione>();
 
 		PrintWriter printFatti = new PrintWriter("input/facts.txt");
@@ -64,11 +64,11 @@ public class Main {
 			ArrayList<Scelta> answerSets = ai.getAnswerSets(); // Da qui devi uscire con la cella che deve essere
 																// spostata
 
-			Thread.sleep(1000);
+			Thread.sleep(800);
 
 			boolean soloSpostamento = ai.soloSpostamento();
 
-			Thread.sleep(1000);
+			Thread.sleep(800);
 
 			for (Scelta scelta : answerSets) {
 
@@ -90,6 +90,7 @@ public class Main {
 								StampeUtils.stampaVisualeGiocatore(tavolo.getPila());
 								Thread.sleep(1000);
 								//tavolo.stampaPilaArrayList();
+								spostamentoEffettuato=true;
 								break;
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
@@ -97,7 +98,10 @@ public class Main {
 							}
 						}
 					}
-
+					if(spostamentoEffettuato) {
+						break;
+					}
+					StampeUtils.stampaVisualeGiocatore(tavolo.getPila());
 				}
 			}
 
@@ -109,7 +113,10 @@ public class Main {
 			printFatti.close();
 			printScelte.close();
 			printDestinazioni.close();
-
+			ai.clear();
+			spostaBlocco=false;
+			spostamentoEffettuato=false;
+ System.out.println("FINE GIROOOOOO");
 		}
 	}
 

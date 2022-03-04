@@ -105,7 +105,7 @@ public class Tavolo {
 
 	public boolean possoSpostareBlocco(int riga, int colonna) {
 
-		ArrayList<Carta> colonnaDelBloccoDaSpostare = this.pile.get(riga);
+		ArrayList<Carta> colonnaDelBloccoDaSpostare = new ArrayList<Carta>(this.pile.get(riga)) ;
 
 		int valorePartenza = colonnaDelBloccoDaSpostare.get(colonna).getValore();
 		int semePartenza = colonnaDelBloccoDaSpostare.get(colonna).getSeme();
@@ -123,8 +123,10 @@ public class Tavolo {
 	}
 
 	public boolean possoIncollareBlocco(int riga, int colonna, ArrayList<Carta> carteDaIncollare) {
-
-		ArrayList<Carta> colonnaDoveIncollare = this.pile.get(riga);
+		if(!possoSpostareBlocco( riga ,colonna)) {
+			return false;
+		}
+		ArrayList<Carta> colonnaDoveIncollare = new ArrayList<Carta>(this.pile.get(riga));
 
 		int valoreUltimaCarta = colonnaDoveIncollare.get(colonnaDoveIncollare.size() - 1).getValore();
 		int valorePrimaCartaDaIncollare = carteDaIncollare.get(0).getValore();
@@ -135,22 +137,24 @@ public class Tavolo {
 
 		return valorePrimaCartaDaIncollare == valoreUltimaCarta - 1;
 	}
-
+	 
 	public boolean spostaBlocco(int rigaFrom, int colonnaFrom, int rigaTo, int colonnaTo) {
 
-		if (!possoSpostareBlocco(rigaFrom, colonnaFrom)) {
+		if( rigaFrom== rigaTo && colonnaFrom== colonnaTo) {
 			return false;
 		}
-		System.out.println("Ho controllato se posso spostare il blocco che parte dalla carta " + "I= " + rigaFrom
-				+ " J= " + colonnaFrom + ".");
+		if (!possoSpostareBlocco(rigaFrom, colonnaFrom)) {
+			System.out.println("NON POSSO SPOSTARE "+ rigaFrom  );
+			return false;
+		}
+		System.out.println("POSSO SPOSTARE "+ rigaFrom + " " +colonnaFrom  );
 		ArrayList<Carta> carteDaIncollare = this.getElementiConsecutiviPila(rigaFrom, colonnaFrom);
 		if (!possoIncollareBlocco(rigaTo, colonnaTo, carteDaIncollare)) {
-			System.out.println("Non posso incollare il blocco che parte dalla carta " + "I= " + rigaFrom + " J= "
-					+ colonnaFrom + " nella posizione I = " + rigaTo + " J = " + colonnaTo + ".");
+			System.out.println("NON POSSO INCOLLARE "+ rigaFrom + " " +colonnaFrom + "--> " + rigaTo +" " +colonnaTo);
 			return false;
 		}
+		System.out.println("SPOSTO "+ rigaFrom + " " +colonnaFrom + "--> " + rigaTo +" " +colonnaTo);
 
-		System.out.println("Posso incollare il blocco" + ".");
 		for (int i = this.pile.get(rigaFrom).size() - 1; i >= colonnaFrom; i--) {
 			
 			if(i == colonnaFrom) {

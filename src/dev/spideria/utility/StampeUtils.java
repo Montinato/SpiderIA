@@ -17,7 +17,7 @@ public class StampeUtils {
 		for(int i=0; i< matriceTrasposta.length;i++) {
 			matriceTrasposta[i] = new Carta[ pile.get(i).size()];
     		for(int j=0;j< pile.get(i).size();j++) {
-    			matriceTrasposta[i][j]=  pile.get(i).get(j);
+    			matriceTrasposta[i][j]= new Carta(pile.get(i).get(j)) ;
     		}
     	}
 		return matriceTrasposta;
@@ -53,13 +53,13 @@ public class StampeUtils {
 						if(matriceTransposta[i][j].getValore()>10) {
 							numeroCarta = NumeroCarta.parseNumeroCarta(matriceTransposta[i][j].getValore()).toString(); 
 						}
-						System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme + SPAZIO );
+						System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme);
 					}
 					else {
 						System.out.print(CARTA_COPERTA);
 					}
 				}
-				
+				System.out.print("   ----   ");
 			}
 			System.out.println("");
 		}
