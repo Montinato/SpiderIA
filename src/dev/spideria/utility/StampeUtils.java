@@ -53,15 +53,13 @@ public class StampeUtils {
 						if(matriceTransposta[i][j].getValore()>10) {
 							numeroCarta = NumeroCarta.parseNumeroCarta(matriceTransposta[i][j].getValore()).toString(); 
 						}
-						System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme);
+						System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme + SPAZIO );
 					}
 					else {
 						System.out.print(CARTA_COPERTA);
 					}
 				}
-				else {
-					System.out.print(CARTA_COPERTA);
-				}
+				
 			}
 			System.out.println("");
 		}

@@ -1,23 +1,17 @@
-%	cella(i,j,seme,valore,numElementiScala).
-
-% HO INIZIATO A SCRIVERLO COSI'
-
-%candidato(I,J,N) | nonCandidato(I,J,N) :- cella(I,J,S,V,N).
-%:- #count{K:scelgo(K,_,_)}<1.
-%scelgo(I,J) :- massimaScala(M), cella(I,J,_,_,_).
-%massimaScala(M) :-  #max{ X,I : cella(I,J,_,_,X) } = M.
-
-%Devi fare un wk costraint per capire data una cella e la sua massima scala, quale spostare per primo
-% POI HO FATTO QUESTO 
-
 scelgo(I,J,N) | nonScelgo(I,J,N) :- cella(I,J,S,V,N).
 
-:- #count{K:scelgo(K,_,_)}<1.
+:- #count{K,X:scelgo(K,X,_)} =V, V<1.
 
 massimaScala(M) :-  #max{ X : cella(I,J,_,_,X) } = M.
 
-:- nonScelgo(I,J,N), massimaScala(N).
+:- nonScelgo(I,J,N), massimaScala(N).	
 
-daiCarte(V) :- massimaScala(V), V = 1.
+:~ scelgo(I,J,V),massimaScala(N), V<=N.  [ V @ N ]
 
-	
+:~ scelgo(I,J,X),massimaScala(X), X=1. [ X @ 1 ]
+
+numCelle(N) :- #count{ X,Y : cella(X,Y,_,_,_) } = N.
+
+soloSpostamento(V) :- cella(I,J,_,_,V) ,massimaScala(V),V=1.
+
+soloSpostamento(K) :- K=0,massimaScala(V), V>1.
