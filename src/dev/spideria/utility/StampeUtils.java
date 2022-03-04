@@ -1,6 +1,7 @@
 package dev.spideria.utility;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import dev.spideria.logica.Carta;
 import dev.spideria.logica.NumeroCarta;
@@ -45,14 +46,18 @@ public class StampeUtils {
 		
 		for(int i=0;i<matriceTransposta.length;i++) {
 			for(int j=0;j<matriceTransposta[i].length;j++) {
-				if(matriceTransposta[i][j].isVisibile()) {
-					Seme parseSeme = Seme.parseSeme(matriceTransposta[i][j].getSeme());
-					String numeroCarta = String.valueOf( matriceTransposta[i][j].getValore());
-					if(matriceTransposta[i][j].getValore()>10) {
-						numeroCarta = NumeroCarta.parseNumeroCarta(matriceTransposta[i][j].getValore()).toString(); 
+				if(Objects.nonNull(matriceTransposta[i][j])) {
+					if(matriceTransposta[i][j].isVisibile()) {
+						Seme parseSeme = Seme.parseSeme(matriceTransposta[i][j].getSeme());
+						String numeroCarta = String.valueOf( matriceTransposta[i][j].getValore());
+						if(matriceTransposta[i][j].getValore()>10) {
+							numeroCarta = NumeroCarta.parseNumeroCarta(matriceTransposta[i][j].getValore()).toString(); 
+						}
+						System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme);
 					}
-					
-					System.out.print(SPAZIO + numeroCarta + SPAZIO + parseSeme);
+					else {
+						System.out.print(CARTA_COPERTA);
+					}
 				}
 				else {
 					System.out.print(CARTA_COPERTA);
